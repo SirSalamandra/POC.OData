@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "a1f8ae30-4c12-4820-8dc9-2d7be707f1bd",
+		"name": "POC.OData",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5922155"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "OData",
+					"item": [
+						{
+							"name": "GetProducts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/odata/products",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"odata",
+										"products"
+									],
+									"query": [
+										{
+											"key": "$select",
+											"value": "id,name,priceInCents",
+											"disabled": true
+										},
+										{
+											"key": "$orderby",
+											"value": "priceInCents",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "priceInCents eq 19999",
+											"description": "Operadores como < e > nao funcionam. Utilize os operadores: eq, ne, gt, lt, ge e le",
+											"disabled": true
+										},
+										{
+											"key": "top",
+											"value": "2",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetProductById",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/odata/products/:key",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"odata",
+										"products",
+										":key"
+									],
+									"query": [
+										{
+											"key": "$select",
+											"value": "name",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "key",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CreateProduct",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Standing Desk\",\r\n    \"category\": \"Furniture\",\r\n    \"priceInCents\": 49950\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/products",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProduct",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Standing Desk\",\r\n    \"category\": \"Furniture\",\r\n    \"priceInCents\": 49960\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/products/:key",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products",
+								":key"
+							],
+							"variable": [
+								{
+									"key": "key",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products/:key",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products",
+								":key"
+							],
+							"variable": [
+								{
+									"key": "key",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "OData",
+					"item": [
+						{
+							"name": "GetClientById",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/odata/clients/:key",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"odata",
+										"clients",
+										":key"
+									],
+									"variable": [
+										{
+											"key": "key",
+											"value": "1028"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetClients",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/odata/clients",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"odata",
+										"clients"
+									],
+									"query": [
+										{
+											"key": "$skip",
+											"value": "3",
+											"disabled": true
+										},
+										{
+											"key": "$top",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "$select",
+											"value": "FirstName, LastName, Email",
+											"disabled": true
+										},
+										{
+											"key": "$OrderBy",
+											"value": "FirstName desc",
+											"disabled": true
+										},
+										{
+											"key": "$expand",
+											"value": "Orders",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetClientById + Orders + Filters",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/odata/clients/1?$select=FirstName, LastName, Email&$expand=Orders($filter=OrderItems/any(item: item/UnitPriceInCents lt 35000);$expand=OrderItems)",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"odata",
+										"clients",
+										"1"
+									],
+									"query": [
+										{
+											"key": "$select",
+											"value": "FirstName, LastName, Email"
+										},
+										{
+											"key": "$expand",
+											"value": "Orders($filter=OrderItems/any(item: item/UnitPriceInCents lt 35000);$expand=OrderItems)"
+										}
+									]
+								},
+								"description": "Nesse exemplo estamos pesquisando por um cliente X, expandindo a entidade para incluri Orders and OrderItems e filtrando as Orders para mostrar apenas as que possuem Items com valor menor que 35000"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CreateClient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Larissa\",\r\n    \"lastName\": \"Carvalho\",\r\n    \"email\": \"larissa.c@email.com.br\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/clients",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateClient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"firstName\": \"Juliana\",\r\n    \"lastName\": \"Souza\",\r\n    \"email\": \"juliana.souza@email.com.br\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/products/:key",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products",
+								":key"
+							],
+							"variable": [
+								{
+									"key": "key",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteClient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/clients/:key",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clients",
+								":key"
+							],
+							"variable": [
+								{
+									"key": "key",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}
