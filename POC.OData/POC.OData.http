@@ -1,0 +1,6 @@
+@POC.OData_HostAddress = http://localhost:5082
+
+GET {{POC.OData_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
